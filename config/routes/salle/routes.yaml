@@ -46,5 +46,9 @@ salle_tp_ajouter:
         numero: \d{1,2}
 
 salle_tp_ajouter2:
- path: /ajouter2
- controller: App\Controller\SalleController::ajouter2
+    path: /ajouter2
+    controller: App\Controller\SalleController::ajouter2
+
+salle_tp_navigation:
+    path: /navigation
+    controller: App\Controller\SalleController::navigation

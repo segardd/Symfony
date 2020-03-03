@@ -6,7 +6,19 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <div id="navigation" ><hr />
+            <a href="{{ path('salle_tp_accueil') }}">accueil</a> -
+            {{ render(path('salle_tp_navigation')) }}
+           <hr /></div>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+        <hr/>
+        <div id="pied_de_page">
+            <p>&copy; DF.</p>
+        </div>
     </body>
+
+		
+	
+
 </html>

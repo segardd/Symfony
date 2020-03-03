@@ -11,18 +11,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
 class SalleController extends AbstractController
 {
-    public function accueil()
+    public function accueil(Session $session)
     {
-        $nombre = rand(1, 84);
+        if ($session->has('nbreFois'))
+            $session->set('nbreFois', $session->get('nbreFois') + 1);
+        else
+            $session->set('nbreFois', 1);
         return $this->render(
             'salle/accueil.html.twig',
-            array('numero' => $nombre)
-        ); // ou ['numero'=>$nombre]);
+            array('nbreFois' => $session->get('nbreFois'))
+        );
     }
 
     public function afficher($numero)
@@ -117,7 +121,7 @@ class SalleController extends AbstractController
             ->add('envoyer', SubmitType::class)
             ->getForm();
         $form->handleRequest($request);
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($salle);
             $entityManager->flush();
@@ -129,6 +133,16 @@ class SalleController extends AbstractController
         return $this->render(
             'salle/ajouter2.html.twig',
             array('monFormulaire' => $form->createView())
+        );
+    }
+
+    public function navigation()
+    {
+        $salles = $this->getDoctrine()
+            ->getRepository(Salle::class)->findAll();
+        return $this->render(
+            'salle/navigation.html.twig',
+            array('salles' => $salles)
         );
     }
 }

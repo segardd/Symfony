@@ -44,3 +44,7 @@ salle_tp_ajouter:
         batiment: A|B|C|D
         etage: \d
         numero: \d{1,2}
+
+salle_tp_ajouter2:
+ path: /ajouter2
+ controller: App\Controller\SalleController::ajouter2

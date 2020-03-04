@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\Type\SalleType;
+use Doctrine\ORM\Query;
+
 
 
 
@@ -88,16 +90,23 @@ class SalleController extends AbstractController
         return new JsonResponse($data);
     }
 
-    public function voir($id)
+    public function voir(Salle $salle){
+        return $this->render('salle/voir.html.twig',
+        array('salle' => $salle));
+    } //en théorie on pourrait faire comme ça
+
+    /*public function voir($id)
     {
         $salle = $this->getDoctrine()->getRepository(Salle::class)->find($id);
         if (!$salle)
-            throw $this->createNotFoundException('Salle[id=' . $id . '] inexistante');
+            throw $this->createNotFoundException('Salle[id=' . $id . '] inconnue');
         return $this->render(
             'salle/voir.html.twig',
             array('salle' => $salle)
         );
-    }
+    }*/
+
+
 
     public function ajouter($batiment, $etage, $numero)
     {

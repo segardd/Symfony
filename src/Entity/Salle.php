@@ -75,4 +75,9 @@ class Salle
     {
         return $this->getBatiment() . '-' . $this->getEtage() . '.' . $this->getNumero();
     }
+
+    public function corrigeNomBatiment()
+    {
+        $this->batiment = strtoupper($this->batiment);
+    }
 }

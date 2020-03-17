@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Salle;
+use App\Entity\Ordinateur;
+use App\Entity\Marque;
 use Doctrine\ORM\Query;
 
 class EssaiController extends AbstractController
@@ -259,4 +261,61 @@ class EssaiController extends AbstractController
             array('id' => $salle->getId())
         );
     }
+
+    public function test25()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $marque = new Marque;
+        $marque->setNom('Dell');
+        $em->persist($marque);
+        $ordi = new Ordinateur;
+        $ordi->setNumero(702);
+        $ordi->setIp('192.168.7.02');
+        $ordi->setMarque($marque);
+        $em->persist($ordi);
+        $em->flush();
+        dump($ordi);
+        return new Response('<html><body></body></html>');
+    }
+
+    public function test26()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $marque = new Marque;
+        $marque->setNom('Lenovo');
+        $ordi = new Ordinateur;
+        $ordi->setNumero(701);
+        $ordi->setIp('192.168.7.01');
+        $ordi->setMarque($marque);
+        //$em->persist($ordi);
+        $em->persist($marque);
+        $em->persist($ordi);
+        $em->flush();
+        dump($ordi);
+        return new Response('<html><body></body></html>');
+    }
+
+    public function test27() {
+        $em = $this->getDoctrine()->getManager();
+        $marque = new Marque;
+        $marque->setNom('Acer');
+        $ordi = new Ordinateur;
+        $ordi->setNumero(703);
+        $ordi->setIp('192.168.7.03');
+        $ordi->setMarque($marque);
+        $em->persist($ordi);
+        $em->flush();
+        dump($ordi);
+        return new Response('<html><body></body></html>');
+        }
+        public function test28() {
+            $em = $this->getDoctrine()->getManager();
+            $ordi = $em->getRepository(Ordinateur::class)->findOneByNumero(703);
+            dump($ordi);
+            $nomMarque = $ordi->getMarque()->getNom();
+            dump($nomMarque);
+            dump($ordi);
+            return new Response('<html><body></body></html>');
+            }
+       
 }

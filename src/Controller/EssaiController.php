@@ -256,7 +256,7 @@ class EssaiController extends AbstractController
         $em->flush();
         return $this->redirectToRoute(
             'salle_tp_voir',
-            array($salle)
+            array('id' => $salle->getId())
         );
     }
 }

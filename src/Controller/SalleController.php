@@ -19,6 +19,7 @@ use Doctrine\ORM\Query;
 
 
 
+
 class SalleController extends AbstractController
 {
     public function accueil(Session $session)
